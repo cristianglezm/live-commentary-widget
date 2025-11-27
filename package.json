@@ -14,7 +14,7 @@
     "build:widget": "npm run build --workspace=@cristianglezm/live-commentary-widget",
     "build": "npm run build:widget && tsc && vite build",
     "type-check": "tsc --noEmit",
-    "buildGH": "npm run build:widget && tsc && vite build --base=/live-comentary-widget",
+    "buildGH": "npm run build:widget && tsc && vite build --base=/live-commentary-widget",
     "preview": "vite preview",
     "show": "npx playwright show-report",
     "test": "npm test -w @cristianglezm/live-commentary-widget",
