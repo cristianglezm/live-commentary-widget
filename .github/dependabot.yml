@@ -18,17 +18,20 @@ updates:
         patterns:
           - "react"
           - "react-dom"
-      types:
-        patterns:
-          - "@types/*"
       dev-tools:
         patterns:
+          - "@types/*"
           - "vite"
           - "@vitejs/*"
+          - "@vitejs/plugin-react"
           - "vitest"
           - "@vitest/*"
+          - "@vitest/ui"
           - "@playwright/*"
+          - "@playwright/test"
           - "@testing-library/*"
+          - "@testing-library/jest-dom"
+          - "@testing-library/react"
           - "jsdom"
           - "tailwindcss"
           - "@tailwindcss/*"
