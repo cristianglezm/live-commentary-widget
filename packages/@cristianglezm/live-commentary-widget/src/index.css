@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  /* Widget Theme Variables - Override these in your app to personalize */
+  --color-lc-bg: #18181b;
+  --color-lc-surface-highlight: #26262c;
+  --color-lc-surface-hover: #3a3a3f;
+  --color-lc-text: #efeff1;
+  --color-lc-text-muted: #adadb8;
+  --color-lc-accent: #9147ff;
+  --color-lc-accent-hover: #772ce8;
+  --color-lc-input-bg: #0e0e10;
+  --color-lc-input-border: #2f2f35;
+
+  /* Animations */
+  --animate-lc-fade-in: lcFadeIn 0.2s ease-out;
+
+  @keyframes lcFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer utilities {
+  .scrollbar-twitch {
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #404044;
+      border-radius: 3px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #6b6b70;
+    }
+  }
+}

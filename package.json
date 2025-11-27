@@ -1,0 +1,47 @@
+{
+  "name": "live-web-commentary-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo website for the live-commentary-widget",
+  "author": "Cristian Gonzalez <cristian.glez.m@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/@cristianglezm/live-commentary-widget"
+  ],
+  "scripts": {
+    "dev": "npm run build:widget && vite",
+    "build:widget": "npm run build --workspace=@cristianglezm/live-commentary-widget",
+    "build": "npm run build:widget && tsc && vite build",
+    "type-check": "tsc --noEmit",
+    "buildGH": "npm run build:widget && tsc && vite build --base=/live-comentary-widget",
+    "preview": "vite preview",
+    "show": "npx playwright show-report",
+    "test": "npm test -w @cristianglezm/live-commentary-widget",
+    "test:watch": "npm run test:watch -w @cristianglezm/live-commentary-widget",
+    "test:ui": "npm run test:ui -w @cristianglezm/live-commentary-widget",
+    "test:e2e": "playwright test e2e/app.spec.ts",
+    "test:e2e:update": "playwright test e2e/app.spec.ts --update-snapshots"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@cristianglezm/live-commentary-widget": "workspace:*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.0.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "@types/three": "^0.180.0",
+    "@vitejs/plugin-react": "^5.1.0",
+    "@vitest/ui": "^4.0.8",
+    "jsdom": "^27.1.0",
+    "tailwindcss": "^4.1.17",
+    "@tailwindcss/vite": "^4.1.17",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2",
+    "vitest": "^4.0.8"
+  }
+}

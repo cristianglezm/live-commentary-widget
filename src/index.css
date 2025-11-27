@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@source "../packages/@cristianglezm/live-commentary-widget/src";
+
+@theme {
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Widget Theme Variables */
+  --color-lc-bg: #18181b;
+  --color-lc-surface-highlight: #26262c;
+  --color-lc-surface-hover: #3a3a3f;
+  --color-lc-text: #efeff1;
+  --color-lc-text-muted: #adadb8;
+  --color-lc-accent: #9147ff;
+  --color-lc-accent-hover: #772ce8;
+  --color-lc-input-bg: #0e0e10;
+  --color-lc-input-border: #2f2f35;
+
+  /* Widget Animation */
+  --animate-lc-fade-in: lcFadeIn 0.2s ease-out;
+
+  @keyframes lcFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

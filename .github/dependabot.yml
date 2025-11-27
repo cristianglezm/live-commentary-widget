@@ -1,0 +1,48 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 10
+    assignees:
+      - "cristianglezm"
+    labels:
+      - "npm"
+      - "dependencies"
+    groups:
+      runtime:
+        patterns:
+          - "react"
+          - "react-dom"
+      types:
+        patterns:
+          - "@types/*"
+      dev-tools:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "vitest"
+          - "@vitest/*"
+          - "@playwright/*"
+          - "@testing-library/*"
+          - "jsdom"
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "typescript"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Etc/UTC"
+    assignees:
+      - "cristianglezm"
+    open-pull-requests-limit: 5
+    labels:
+      - "github-actions"
+      - "ci"

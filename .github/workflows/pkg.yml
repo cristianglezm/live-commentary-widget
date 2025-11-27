@@ -1,0 +1,27 @@
+name: pkg
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+
+jobs:
+  npm:
+    name: publish to npm and ghp
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: checkout branch
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: build dist/lib and publish for npm and github packages
+        shell: bash
+        env:
+            NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+            GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          bash .devops/build.sh
+          sh .devops/publish.sh "$NPM_TOKEN" "$GH_TOKEN"
