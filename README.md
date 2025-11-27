@@ -2,6 +2,8 @@
 
 A React-based widget that adds a Twitch-style chat overlay to your web applications. It uses Vision Language Models (VLMs) to analyze screen content in real-time and generate witty, context-aware commentary.
 
+[![CI](https://github.com/cristianglezm/live-commentary-widget/actions/workflows/ci.yml/badge.svg)](https://github.com/cristianglezm/live-commentary-widget/actions/workflows/ci.yml)
+[![CD](https://github.com/cristianglezm/live-commentary-widget/actions/workflows/cd.yml/badge.svg)](https://github.com/cristianglezm/live-commentary-widget/actions/workflows/cd.yml)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![React](https://img.shields.io/badge/React-19-blue)
