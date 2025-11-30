@@ -3,6 +3,7 @@ export interface ChatMessage {
   username: string;
   color: string;
   text: string;
+  attachment?: string; // Base64 string of the reference image
 }
 
 export interface ProgressItem {

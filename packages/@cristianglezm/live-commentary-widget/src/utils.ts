@@ -10,13 +10,20 @@ export const generateFakeUser = (customUsernames?: string[]) => {
   };
 };
 
-export const createChatMessage = (text: string, username?: string, color?: string, customUsernames?: string[]): ChatMessage => {
+export const createChatMessage = (
+  text: string, 
+  username?: string, 
+  color?: string, 
+  customUsernames?: string[],
+  attachment?: string
+): ChatMessage => {
   const user = username ? { username, color: color || '#ffffff' } : generateFakeUser(customUsernames);
   
   return {
     id: Date.now().toString() + Math.random().toString(36).substring(2),
     username: user.username,
     color: user.color,
-    text
+    text,
+    attachment
   };
 };

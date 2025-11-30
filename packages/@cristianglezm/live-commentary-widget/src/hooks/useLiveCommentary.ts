@@ -16,6 +16,11 @@ interface UseLiveCommentaryProps {
   isCapturing: boolean;
 }
 
+interface QueuedComment {
+    text: string;
+    attachment?: string;
+}
+
 export const useLiveCommentary = ({
   config,
   prompts,
@@ -57,7 +62,7 @@ export const useLiveCommentary = ({
 
   const [loadingState, setLoadingState] = useState<LoadingState>({ status: 'idle', progressItems: [] });
   // Use Ref for queue to avoid side-effects in state setters (which run twice in StrictMode)
-  const commentQueueRef = useRef<string[]>([]);
+  const commentQueueRef = useRef<QueuedComment[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
 
   // Refs for access inside intervals/async without stale closures
@@ -78,12 +83,12 @@ export const useLiveCommentary = ({
   useEffect(() => { contextDataRef.current = contextData; }, [contextData]);
 
   // Public Action: Add a message manually
-  const addMessage = useCallback((text: string, username?: string, color?: string) => {
-    const msg = createChatMessage(text, username, color, usernames);
+  const addMessage = useCallback((text: string, username?: string, color?: string, attachment?: string) => {
+    const msg = createChatMessage(text, username, color, usernames, attachment);
     setMessages(prev => [...prev.slice(-99), msg]); // Keep last 100
   }, [usernames]);
 
-  const processResponse = useCallback((rawComments: string[]) => {
+  const processResponse = useCallback((rawComments: string[], capturedImage?: string) => {
       if (rawComments && rawComments.length > 0) {
           const uniqueBatch = Array.from(new Set(rawComments));
           const newUniqueComments = uniqueBatch.filter(c => !seenCommentsRef.current.has(c));
@@ -97,8 +102,13 @@ export const useLiveCommentary = ({
           });
 
           if (newUniqueComments.length > 0) {
-            // Push directly to ref array
-            commentQueueRef.current.push(...newUniqueComments);
+            // Map text comments to queue objects.
+            // Attach the captured image only to the first comment in this batch to avoid spamming the same image.
+            const queueItems: QueuedComment[] = newUniqueComments.map((text, index) => ({
+                text,
+                attachment: (index === 0) ? capturedImage : undefined
+            }));
+            commentQueueRef.current.push(...queueItems);
           }
       }
   }, []);
@@ -142,7 +152,7 @@ export const useLiveCommentary = ({
         } else {
              // DEFAULT PATH: Library handles parsing and queueing
              const comments = provider.parseResponse(rawText);
-             processResponse(comments);
+             processResponse(comments, base64Image);
         }
 
     } catch (e) {
@@ -170,9 +180,9 @@ export const useLiveCommentary = ({
     const displayInterval = window.setInterval(() => {
         if (commentQueueRef.current.length > 0) {
             // Safe shift from ref - no side effects in state setters
-            const nextComment = commentQueueRef.current.shift();
-            if (nextComment) {
-                addMessage(nextComment);
+            const nextItem = commentQueueRef.current.shift();
+            if (nextItem) {
+                addMessage(nextItem.text, undefined, undefined, nextItem.attachment);
             }
         }
     }, 2500 + Math.random() * 1000); // Randomize slightly for natural feel
