@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { ChatMessage as ChatMessageType } from '../types';
 
 interface ChatMessageProps {
@@ -55,21 +55,48 @@ const Badge: React.FC<{ type: string }> = ({ type }) => {
 };
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message, showBadges = true }) => {
+  const [showImage, setShowImage] = useState(false);
   const badges = showBadges ? getBadges(message.username) : [];
 
   return (
     <div className="py-[2px] px-4 text-[13px] leading-5 break-words animate-lc-fade-in hover:bg-lc-surface-highlight transition-colors group">
-      <span className="inline-flex items-center select-none">
-          {badges.map(b => <Badge key={b} type={b} />)}
-      </span>
-      <span 
-        className="font-bold cursor-pointer hover:underline align-baseline" 
-        style={{ color: message.color }}
-      >
-        {message.username}
-      </span>
-      <span className="text-lc-text mr-1">:</span>
-      <span className="text-lc-text align-baseline">{message.text}</span>
+      <div className="inline">
+        <span className="inline-flex items-center select-none">
+            {badges.map(b => <Badge key={b} type={b} />)}
+        </span>
+        <span 
+          className="font-bold cursor-pointer hover:underline align-baseline" 
+          style={{ color: message.color }}
+        >
+          {message.username}
+        </span>
+        <span className="text-lc-text mr-1">:</span>
+        <span className="text-lc-text align-baseline">{message.text}</span>
+      </div>
+
+      {message.attachment && (
+        <div className="mt-1">
+          <button 
+            onClick={() => setShowImage(!showImage)}
+            className="text-[10px] bg-lc-surface-hover hover:bg-lc-surface-highlight border border-lc-surface-highlight text-lc-text-muted hover:text-lc-text px-1.5 py-0.5 rounded flex items-center gap-1 transition-colors select-none"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+               <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+            </svg>
+            {showImage ? 'Hide' : 'Show'} Context
+          </button>
+          
+          {showImage && (
+            <div className="mt-2 relative rounded overflow-hidden border border-lc-surface-highlight max-w-[240px] animate-lc-fade-in">
+              <img 
+                src={`data:image/jpeg;base64,${message.attachment}`} 
+                alt="AI Context" 
+                className="w-full h-auto block"
+              />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
