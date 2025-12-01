@@ -9,6 +9,7 @@ A React component library that adds a "Twitch-style" live chat overlay to your a
 ## ✨ Features
 
 *   **Plug & Play**: Drop `<LiveCommentary />` into any React app.
+*   **📸 Snapshot Verification**: Users can toggle "Show Reference Image" to see exactly what the AI was looking at when it commented (New in v1.1).
 *   **Headless Hooks**: Use `useLiveCommentary` and `useScreenCapture` to build your own custom UI.
 *   **AI Middleware**: Intercept raw AI responses to handle your own parsing, username assignment, or state management.
 *   **AI Powered**: Compatible with OpenAI's Vision API (`gpt-4o`) and local alternatives (e.g., `llama.cpp` server).
@@ -102,6 +103,8 @@ function MyCustomPage() {
 | `captureSource` | `() => string \| null` | | Required if mode is `external`. Returns base64 image string. |
 | `prompts` | `CommentaryPrompts` | | Customize the system instructions and triggers. |
 | `contextData` | `object` | | Arbitrary JSON data sent to the AI for context. |
+| `usernames` | `string[]` | `undefined` | Custom list of usernames for random assignment. |
+| `showBadges` | `boolean` | `true` | Show Twitch-style badges (Broadcaster, Prime, etc). |
 | `title` | `string` | `"Live Commentary"` | Header title of the widget. |
 | `overlay` | `boolean` | `true` | If `true`, fixed positioning. If `false`, fills parent. |
 
