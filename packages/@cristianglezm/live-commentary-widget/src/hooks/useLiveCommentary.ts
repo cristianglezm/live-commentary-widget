@@ -11,7 +11,7 @@ interface UseLiveCommentaryProps {
   prompts?: Partial<CommentaryPrompts>;
   contextData?: Record<string, any>;
   usernames?: string[];
-  responseTransform?: (rawText: string) => ChatMessage[];
+  responseTransform?: (rawText: string, capturedImage?: string) => ChatMessage[];
   captureFrame: () => Promise<string | null>;
   isCapturing: boolean;
 }
@@ -139,7 +139,8 @@ export const useLiveCommentary = ({
 
         if (responseTransform) {
             // MIDDLEWARE PATH: User handles the logic
-            const transformedMessages = responseTransform(rawText);
+            // Pass base64Image so the consumer can attach it if they want
+            const transformedMessages = responseTransform(rawText, base64Image || undefined);
             if (transformedMessages && Array.isArray(transformedMessages)) {
                 // If middleware returns messages, add them directly
                 // We use setMessages callback to ensure we don't lose updates

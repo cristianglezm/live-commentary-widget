@@ -122,6 +122,9 @@ export interface LiveCommentaryProps {
    * Middleware function to intercept and transform the raw AI response.
    * If provided, the internal parsing logic is skipped, and this function
    * is responsible for returning the array of ChatMessages to display.
+   * 
+   * The second argument contains the base64 image used for this inference, 
+   * allowing you to attach it to your custom messages if desired.
    */
-  responseTransform?: (rawText: string) => ChatMessage[];
+  responseTransform?: (rawText: string, capturedImage?: string) => ChatMessage[];
 }

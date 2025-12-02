@@ -9,7 +9,7 @@ A React component library that adds a "Twitch-style" live chat overlay to your a
 ## ✨ Features
 
 *   **Plug & Play**: Drop `<LiveCommentary />` into any React app.
-*   **📸 Snapshot Verification**: Users can toggle "Show Reference Image" to see exactly what the AI was looking at when it commented (New in v1.1).
+*   **Visual Context**: Users can toggle "Show Context" on comments to verify exactly what the AI saw at that moment.
 *   **Headless Hooks**: Use `useLiveCommentary` and `useScreenCapture` to build your own custom UI.
 *   **AI Middleware**: Intercept raw AI responses to handle your own parsing, username assignment, or state management.
 *   **AI Powered**: Compatible with OpenAI's Vision API (`gpt-4o`) and local alternatives (e.g., `llama.cpp` server).
@@ -37,7 +37,7 @@ function App() {
       <LiveCommentary 
         config={{
           model: 'gpt-4o',
-          apiKey: process.env.REACT_APP_API_KEY, 
+          apiKey: 'not_required', 
         }} 
       />
     </div>
@@ -48,17 +48,20 @@ function App() {
 ### 2. Middleware (Controlled Mode)
 Want to control exactly who says what? Use `responseTransform` to intercept the raw text from the LLM and return your own message objects.
 
+**Pro Tip:** You also receive the `capturedImage` snapshot, so you can attach it to your custom messages to enable the "Show Context" feature.
+
 ```tsx
 import { LiveCommentary, createChatMessage } from '@cristianglezm/live-commentary-widget';
 
 <LiveCommentary 
-  responseTransform={(rawText) => {
-    // rawText is exactly what the LLM returned
-    console.log("AI said:", rawText);
+  responseTransform={(rawText, capturedImage) => {
+    // rawText: The raw string response from the AI
+    // capturedImage: The base64 image used for this analysis
     
     // You can parse JSON, XML, or just return a hardcoded user
     return [
-      createChatMessage(rawText, "MyCustomBot", "#ff0000")
+      // createChatMessage(text, username, color, customUsernamesList, attachment)
+      createChatMessage(rawText, "MyCustomBot", "#ff0000", undefined, capturedImage)
     ];
   }}
 />
@@ -86,12 +89,30 @@ function MyCustomPage() {
       
       {/* You can use our widget or render your own list */}
       <div className="my-custom-chat-container">
-        {messages.map(msg => <div key={msg.id}>{msg.text}</div>)}
+        {messages.map(msg => (
+            <div key={msg.id}>
+                <b>{msg.username}:</b> {msg.text}
+                {/* Access the visual context image via msg.attachment */}
+                {msg.attachment && <img src={`data:image/jpeg;base64,${msg.attachment}`} />}
+            </div>
+        ))}
       </div>
     </div>
   );
 }
 ```
+
+## 📸 Visual Context
+
+The widget automatically attaches a snapshot of the screen to every AI-generated comment. This allows users to understand *why* the AI said something.
+
+1.  **Hover/Look** at a message in the chat.
+2.  Click the **"Show Context"** button (small eye icon).
+3.  The image frame analyzed by the AI will appear below the text.
+
+This is particularly useful for:
+*   **Debugging prompts**: See if the model is hallucinating or just saw something you missed.
+*   **Verification**: Proving the commentary is "live" and reacting to the actual video feed.
 
 ## ⚙️ Configuration Props (`LiveCommentary`)
 
@@ -99,7 +120,7 @@ function MyCustomPage() {
 |------|------|---------|-------------|
 | `config` | `Partial<VlmSettings>` | | Override API settings (url, key, model, temp). |
 | `mode` | `'screen-capture' \| 'external'` | `'screen-capture'` | Use `'external'` for direct canvas/video hook. |
-| `responseTransform` | `(raw: string) => ChatMessage[]` | | **New:** Middleware to handle raw AI text yourself. |
+| `responseTransform` | `(raw: string, img?: string) => ChatMessage[]` | | **New:** Middleware to handle raw AI text yourself. |
 | `captureSource` | `() => string \| null` | | Required if mode is `external`. Returns base64 image string. |
 | `prompts` | `CommentaryPrompts` | | Customize the system instructions and triggers. |
 | `contextData` | `object` | | Arbitrary JSON data sent to the AI for context. |

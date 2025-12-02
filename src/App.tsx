@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { LiveCommentary, createChatMessage } from '@cristianglezm/live-commentary-widget';
+import { useState, useRef } from 'react';
+import { LiveCommentary } from '@cristianglezm/live-commentary-widget';
 import { PurchaseAlert } from './components/PurchaseAlert';
 import { NavBar } from './components/NavBar';
 import { SynergySharkSite } from './sites/SynergySharkSite';

@@ -58,6 +58,15 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, showBadges = true })
   const [showImage, setShowImage] = useState(false);
   const badges = showBadges ? getBadges(message.username) : [];
 
+  const getImageSrc = (attachment: string) => {
+      // Robust check: if it's already a Data URI, use it as is.
+      if (attachment.trim().startsWith('data:')) {
+          return attachment;
+      }
+      // Otherwise, assume it's a raw base64 jpeg buffer
+      return `data:image/jpeg;base64,${attachment}`;
+  };
+
   return (
     <div className="py-[2px] px-4 text-[13px] leading-5 break-words animate-lc-fade-in hover:bg-lc-surface-highlight transition-colors group">
       <div className="inline">
@@ -78,18 +87,19 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, showBadges = true })
         <div className="mt-1">
           <button 
             onClick={() => setShowImage(!showImage)}
+            title="View the snapshot analyzed by the AI for this comment"
             className="text-[10px] bg-lc-surface-hover hover:bg-lc-surface-highlight border border-lc-surface-highlight text-lc-text-muted hover:text-lc-text px-1.5 py-0.5 rounded flex items-center gap-1 transition-colors select-none"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
                <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
             </svg>
-            {showImage ? 'Hide' : 'Show'} Context
+            {showImage ? 'Hide Context' : 'Show Context'}
           </button>
           
           {showImage && (
             <div className="mt-2 relative rounded overflow-hidden border border-lc-surface-highlight max-w-[240px] animate-lc-fade-in">
               <img 
-                src={`data:image/jpeg;base64,${message.attachment}`} 
+                src={getImageSrc(message.attachment)}
                 alt="AI Context" 
                 className="w-full h-auto block"
               />

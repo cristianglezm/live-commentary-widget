@@ -18,10 +18,10 @@ This project is a monorepo that contains:
 
 -   **👁️ Visual Intelligence**: Analyzes screen content using multimodal AI models (GPT-4o, local VLMs via llama.cpp, Gemini, etc.).
 -   **🔌 Middleware Support**: Intercept AI responses to define your own users, colors, and parsing logic.
+-   **📸 Context Verification**: Users can click "Show Context" on comments to see the exact snapshot the AI analyzed.
 -   **🪝 Headless Hooks**: Use `useScreenCapture` and `useLiveCommentary` independently to build custom UIs.
 -   **💬 Live Chat Experience**: Simulates a lively chat environment with sticky scrolling and message overflow handling.
 -   **🎮 Game Ready**: Supports `external` mode to capture frames directly from `<canvas>` elements for high-performance game commentary.
--   **🤖 Autonomous Agents**: The Football demo features self-driving AI agents playing a real-time match.
 
 ## 🚀 Getting Started
 
