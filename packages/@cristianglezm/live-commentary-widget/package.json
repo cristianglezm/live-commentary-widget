@@ -55,18 +55,18 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@tailwindcss/vite": "^4.1.17",
+    "@tailwindcss/vite": "^4.1.18",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.0.0",
-    "@types/node": "^24.10.1",
+    "@types/node": "^25.0.2",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/ui": "^4.0.15",
-    "jsdom": "^27.2.0",
-    "tailwindcss": "^4.1.17",
+    "jsdom": "^27.3.0",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
-    "vite": "^7.2.7",
+    "vite": "^7.3.0",
     "vitest": "^4.0.8"
   }
 }
