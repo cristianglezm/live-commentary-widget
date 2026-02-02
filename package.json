@@ -29,7 +29,7 @@
     "@cristianglezm/live-commentary-widget": "workspace:*"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.0",
+    "@playwright/test": "^1.58.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/react": "^19.2.9",
@@ -37,7 +37,7 @@
     "@types/three": "^0.182.0",
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/ui": "^4.0.18",
-    "jsdom": "^27.4.0",
+    "jsdom": "^28.0.0",
     "tailwindcss": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
     "typescript": "^5.9.3",
