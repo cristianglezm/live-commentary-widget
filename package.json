@@ -24,8 +24,8 @@
     "test:e2e:update": "playwright test e2e/app.spec.ts --update-snapshots"
   },
   "dependencies": {
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "@cristianglezm/live-commentary-widget": "workspace:*"
   },
   "devDependencies": {
