@@ -24,15 +24,15 @@
     "test:e2e:update": "playwright test e2e/app.spec.ts --update-snapshots"
   },
   "dependencies": {
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "@cristianglezm/live-commentary-widget": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
-    "@types/react": "^19.2.15",
+    "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
     "@types/three": "^0.184.1",
     "@vitejs/plugin-react": "^6.0.2",
