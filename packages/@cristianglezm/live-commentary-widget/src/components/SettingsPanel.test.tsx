@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import SettingsPanel from './SettingsPanel';
 import { DEFAULT_SETTINGS } from '../constants';
 
