@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import ChatMessage from './ChatMessage';
 import type { ChatMessage as ChatMessageType } from '../types';
 

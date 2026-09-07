@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ChatWidget from './ChatWidget';
 import { DEFAULT_SETTINGS } from '../constants';
 import type { ChatMessage as ChatMessageType } from '../types';
